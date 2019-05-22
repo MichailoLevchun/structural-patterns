@@ -1,9 +1,11 @@
-package main.proxy;
+package main.proxy.model;
+
+import main.proxy.service.InternetService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProxyInternet implements Internet {
+public class ProxyInternet implements InternetService {
     private static List<String> banned;
 
     static {
@@ -16,7 +18,7 @@ public class ProxyInternet implements Internet {
     public void connectTo(String url) throws Exception {
         if (banned.contains(url))
             throw new Exception("Access denied to " + url);
-        Internet internet = new RealInternet();
+        InternetService internet = new RealInternet();
         internet.connectTo(url);
     }
 }
